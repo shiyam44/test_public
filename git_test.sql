@@ -1,0 +1,9 @@
+create PROCEDURE "SRAGHUL"."GIT_TEST"()
+LANGUAGE SQLSCRIPT
+SQL SECURITY INVOKER
+AS
+BEGIN
+
+select 'success' as A from dummy;
+
+END
