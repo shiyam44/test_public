@@ -1,6 +1,6 @@
-using CatalogService as service from '../../srv/interactions_srv';
+using CatalogService as service from '../../srv/cat-service';
 
-annotate service.Adobe_Code_Analyzer_Table_View with @(UI : {
+annotate service.Adobe_Code_Analyzer_Table with @(UI : {
     LineItem : [
         //insert your column enhancement here
         {   
@@ -190,7 +190,23 @@ annotate service.Adobe_Dependent_Object_Table_View with @(UI : {
         }
     ]
 });
-annotate service.ADOBE_PROCEDURES_VIEW with @(
+
+// annotate service.GET_LATEST with @( 
+//    UI.FieldGroup : {
+//        $Type : 'UI.FieldGroupType',
+//        Label : 'GET_LATEST',
+//    },	
+//    UI : { 
+
+//     },
+// );
+annotate  service.GET_LATEST with {
+    @Common.SemanticObject : 'GET_LATEST'
+    GET_LATEST
+	
+};
+
+annotate service.ADOBE_PROCEDURES with @(
 	//Common.SemanticKey: [title],
 	UI: {
 		//Identification: [{Value:title}],
@@ -208,9 +224,21 @@ annotate service.ADOBE_PROCEDURES_VIEW with @(
                             $Type : 'UI.DataField',
                             Value : PROCEDURE_NAME
                         },
+                        {
+                            $Type : 'UI.DataField',
+                            Value : LAST_REFRESHED
+                        },
                         {   $Type: 'UI.DataFieldForAction', 
-                            Action: 'CatalogService.ANALYSE', 
+                            Action: 'CatalogService.ANALYSE',
+                            //Action: 'CatalogService.EntityContainer/',  
                             Label: 'Analyze',
+                            Inline : true,
+                            //IconUrl : 'sap-icon://action-settings',
+                        },
+                        {   $Type: 'UI.DataFieldForAction', 
+                            //Action: 'CatalogService.ANALYSE',
+                            Action: 'CatalogService.GET_LATEST_RECORD',  
+                            Label: 'Get lastest details',
                             Inline : true,
                             //IconUrl : 'sap-icon://action-settings',
                         }
@@ -225,23 +253,19 @@ annotate service.ADOBE_PROCEDURES_VIEW with @(
       //TypeImageUrl   : 'sap-icon://alert',
         Title          : {Value : PROCEDURE_OID},
         Description    : {Value : PROCEDURE_NAME}, 
-    },
+    }/*,
     Identification : [
     {
         $Type : 'UI.DataFieldForAction',
-        Label : 'GIT',
-        Action : 'CatalogService.GIT',
-       //![@UI.Hidden] : true
-        //![@UI.Importance] : #High
+        Label : 'Analyze',
+        Action : 'CatalogService.ANALYSE',
     },
     {
         $Type : 'UI.DataFieldForAction',
-        Label : 'GIT1',
-        Action : 'CatalogService.GIT1',
-       //![@UI.Hidden] : true
-        //![@UI.Importance] : #High
+        Label : 'GET_LATEST_RECORD',
+        Action : 'CatalogService.GET_LATEST_RECORD',
     }
-],
+]*/,
 
     //Facets for additional object header information (shown in the object page header)
     HeaderFacets                         : [{
@@ -273,6 +297,9 @@ annotate service.ADOBE_PROCEDURES_VIEW with @(
             },
             {
                 Value : CREATE_TIME
+            },
+            {
+                Value : LAST_REFRESHED
             }
         ]
     },
