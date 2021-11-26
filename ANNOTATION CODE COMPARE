@@ -1,0 +1,378 @@
+using CatalogService as service from '../../srv/interactions_srv';
+
+annotate service.Adobe_Code_Analyzer_Table_View with @(UI : {
+    LineItem : [
+        //insert your column enhancement here
+        {   
+            $Type : 'UI.DataField',
+            Label : 'ID',
+            Value : ID
+            
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'RULE_NAME',
+            Value : RULE_NAME,
+            
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'RULE_NAMESPACE',
+            Value : RULE_NAMESPACE,
+           
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'CATEGORY',
+            Value : CATEGORY,
+            
+        },
+        {
+            $Type : 'UI.DataField',
+            Label: 'START_POSITION',
+            Value : START_POSITION,
+            
+
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'END_POSITION',
+            Value : END_POSITION,
+            
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'LONG_DESCRIPTION',
+            Value : LONG_DESCRIPTION,
+            
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'RECOMMENDATION',
+            Value : RECOMMENDATION,
+            
+        }
+    ],
+     //	Information for the header area of an entity representation
+    HeaderInfo : {
+        TypeName       : 'Rule Detail',
+        TypeNamePlural : 'Rule Details',
+        //ImageUrl : 'app/images/Adobe.png',
+        //ImageUrl : 'https://github.com/shiyam44/test_hana/blob/master/Adobe.jpg',
+       //ImageUrl : 'https://github.com/shiyam44/test_hana/blob/master/Adobe.png',
+      //TypeImageUrl   : 'sap-icon://alert',
+        Title          : {Label : 'RULE_NAME',Value : RULE_NAME},
+        Description    : {Label : 'CATEGORY',Value : CATEGORY}, 
+    },
+
+    //Facets for additional object header information (shown in the object page header)
+    HeaderFacets                         : [{
+        $Type  : 'UI.ReferenceFacet',
+        Target : '@UI.FieldGroup#HeaderGeneralInformation'
+    }],
+    //Group of fields with an optional label
+    //https://github.com/SAP/odata-vocabularies/blob/master/vocabularies/UI.md#FieldGroupType
+    FieldGroup #HeaderGeneralInformation : {
+        $Type : 'UI.FieldGroupType',
+        Data : [
+            {   
+                Label : 'RULE_NAMESPACE',
+                Value : RULE_NAMESPACE
+            }
+        ]
+    },
+    FieldGroup #RuleDetails : {
+        $Type : 'UI.FieldGroupType',
+        Data : [
+            {
+                $Type : 'UI.DataField',
+                Label : 'LONG_DESCRIPTION',
+                Value : LONG_DESCRIPTION
+            },
+            {
+                $Type : 'UI.DataField',
+                Label : 'RECOMMENDATION',
+                Value : RECOMMENDATION
+            },
+            {
+                $Type : 'UI.DataField',
+                Label : 'PROBLEM_LINE',
+                Value : PROBLEM_LINE
+            }
+            //insert your field group enhancement here 
+            
+       ]
+    },
+    //object page content area is organized by facets referring to e.g. fieldgroup and lineItem annotations
+    //https://github.com/SAP/odata-vocabularies/blob/master/vocabularies/UI.md#Facet    
+    Facets : [
+        {
+            $Type  : 'UI.CollectionFacet',
+            Label  : 'Rule Overview',
+            ID     : 'Rule_Overview',
+            Facets : [
+                {
+                    $Type  : 'UI.ReferenceFacet',
+                    Label  : 'Rule Details',
+                    ID     : 'Rule_Details',
+                    Target : '@UI.FieldGroup#RuleDetails'
+                },
+                //insert your reference facet enhancement here
+
+            ]
+        }
+    ]
+});
+
+
+annotate service.Adobe_Object_Used_Table_View with @(UI : {
+    LineItem : [
+        //insert your column enhancement here
+        {
+            $Type : 'UI.DataField',
+            Label : 'ID',
+            Value : ID,
+            
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'SCHEMA_NAME',
+            Value : SCHEMA_NAME,
+            
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'OBJECT_NAME',
+            Value : OBJECT_NAME,
+            
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'OBJECT_TYPE',
+            Value : OBJECT_TYPE,
+            
+        }
+    ]
+});
+
+annotate service.Adobe_Dependent_Object_Table_View with @(UI : {
+    LineItem : [
+        //insert your column enhancement here
+        {
+            $Type : 'UI.DataField',
+            Label : 'ID',
+            Value : ID,
+            
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'SCHEMA_NAME',
+            Value : SCHEMA_NAME,
+            
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'OBJECT_NAME',
+            Value : OBJECT_NAME,
+            
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'OBJECT_TYPE',
+            Value : OBJECT_TYPE,
+            
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'DEPENDENCY_TYPE',
+            Value : DEPENDENCY_TYPE,
+            
+        }
+    ]
+});
+annotate service.ADOBE_PROCEDURES_VIEW with @(
+	//Common.SemanticKey: [title],
+	UI: {
+		//Identification: [{Value:title}],
+		SelectionFields: [ PROCEDURE_OID,SCHEMA_NAME,PROCEDURE_NAME],
+		LineItem: [            
+                        {
+                            $Type : 'UI.DataField',
+                            Value : PROCEDURE_OID
+                        },
+                        {
+                            $Type : 'UI.DataField',
+                            Value : SCHEMA_NAME
+                        },
+                        {
+                            $Type : 'UI.DataField',
+                            Value : PROCEDURE_NAME
+                        },
+                        {   $Type: 'UI.DataFieldForAction', 
+                            Action: 'CatalogService.ANALYSE', 
+                            Label: 'Analyze',
+                            Inline : true,
+                            //IconUrl : 'sap-icon://action-settings',
+                        }
+	],
+     //	Information for the header area of an entity representation
+    HeaderInfo : {
+        TypeName       : 'Procedure Detail',
+        TypeNamePlural : 'Procedure Details',
+        ImageUrl : 'app/images/Adobe.png',
+        //ImageUrl : 'https://github.com/shiyam44/test_hana/blob/master/Adobe.jpg',
+       //ImageUrl : 'https://github.com/shiyam44/test_hana/blob/master/Adobe.png',
+      //TypeImageUrl   : 'sap-icon://alert',
+        Title          : {Value : PROCEDURE_OID},
+        Description    : {Value : PROCEDURE_NAME}, 
+    },
+    Identification : [
+    {
+        $Type : 'UI.DataFieldForAction',
+        Label : 'GIT',
+        Action : 'CatalogService.GIT',
+       //![@UI.Hidden] : true
+        //![@UI.Importance] : #High
+    },
+    {
+        $Type : 'UI.DataFieldForAction',
+        Label : 'GIT1',
+        Action : 'CatalogService.GIT1',
+       //![@UI.Hidden] : true
+        //![@UI.Importance] : #High
+    }
+],
+
+    //Facets for additional object header information (shown in the object page header)
+    HeaderFacets                         : [{
+        $Type  : 'UI.ReferenceFacet',
+        Target : '@UI.FieldGroup#HeaderGeneralInformation'
+    }],
+    //Group of fields with an optional label
+    //https://github.com/SAP/odata-vocabularies/blob/master/vocabularies/UI.md#FieldGroupType
+    FieldGroup #HeaderGeneralInformation : {
+        $Type : 'UI.FieldGroupType',
+        Data : [
+            {
+                Value : PROCEDURE_OID
+            },
+            {
+                Value : PROCEDURE_NAME
+            },
+            {
+                Value : INPUT_PARAMETER_COUNT
+            },
+            {
+                Value : OUTPUT_PARAMETER_COUNT
+            },
+            {
+                Value : INOUT_PARAMETER_COUNT
+            },
+            {
+                Value : OWNER_NAME
+            },
+            {
+                Value : CREATE_TIME
+            }
+        ]
+    },
+    FieldGroup #ProcedureDetails : {
+        $Type : 'UI.FieldGroupType',
+        Data : [
+            {
+                $Type : 'UI.DataField',
+                Value : DEFINITION
+            }
+            //insert your field group enhancement here 
+            
+       ]
+    },
+    //object page content area is organized by facets referring to e.g. fieldgroup and lineItem annotations
+    //https://github.com/SAP/odata-vocabularies/blob/master/vocabularies/UI.md#Facet    
+    Facets : [
+        {
+            $Type  : 'UI.CollectionFacet',
+            Label  : 'Procedure Overview',
+            ID     : 'Procedure_Overview',
+            Facets : [
+                {
+                    $Type  : 'UI.ReferenceFacet',
+                    Label  : 'Procedure Definition',
+                    ID     : 'Procedure_Definition',
+                    Target : '@UI.FieldGroup#ProcedureDetails'
+                },
+                //insert your reference facet enhancement here
+
+            ]
+        },
+        //this facet shows a table on the object page by referring to a lineItem annotation via association incidentFlow
+        //the referred LineItem annotation definition for entity IncidentFlow is defined below
+        {
+            $Type         : 'UI.ReferenceFacet',
+            Label         : 'Procedure Details',
+            ID            : 'Procedure_Details',
+            Target        : 'PROCEDURE_DETAILS/@UI.LineItem',
+            //![@UI.Hidden] : isDraft
+        },
+        {
+            $Type         : 'UI.ReferenceFacet',
+            Label         : 'Objects Used',
+            ID            : 'Objects_Used',
+            Target        : 'USED_OBJECTS/@UI.LineItem',
+            //![@UI.Hidden] : isDraft
+        },
+        {
+            $Type         : 'UI.ReferenceFacet',
+            Label         : 'Dependent Objects',
+            ID            : 'Dependent_Objects',
+            Target        : 'DEPENDENT_OBJECTS/@UI.LineItem',
+            //![@UI.Hidden] : isDraft
+        }/*,
+        {
+            $Type         : '',
+            Label         : 'Rule List',
+            ID            : 'Rule_List',
+            Target        : '',
+            //![@UI.Hidden] : isDraft
+        }*/
+    ]
+
+	}
+);
+
+/*annotate service.ADOBE_SQLSCRIPT_ANALYZER_RULES_VIEW with @(UI : {
+    LineItem : [
+        //insert your column enhancement here
+        {   
+            $Type : 'UI.DataField',
+            Label : 'ID',
+            Value : ID
+            
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'RULE_NAME',
+            Value : RULE_NAME,
+            
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'RULE_NAMESPACE',
+            Value : RULE_NAMESPACE,
+           
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'LONG_DESCRIPTION',
+            Value : LONG_DESCRIPTION,
+            
+        }
+        ,
+        {
+            $Type : 'UI.DataField',
+            Label : 'RECOMMENDATION',
+            Value : RECOMMENDATION,
+            
+        }
+    ]
+});*/
